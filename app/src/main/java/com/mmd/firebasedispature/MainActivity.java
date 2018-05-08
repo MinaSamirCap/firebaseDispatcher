@@ -1,5 +1,6 @@
 package com.mmd.firebasedispature;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -44,7 +45,18 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         dispatcher.mustSchedule(myJob);
-        dispatcher.cancel(JOB_TAH_1);
+        //dispatcher.cancel(JOB_TAH_1);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                stopDispatcher();
+            }
+        }, 120000);
+    }
+
+    private void stopDispatcher() {
+        GooglePlayDriver driver = new GooglePlayDriver(this);
         int cancel = driver.cancel(JOB_TAH_1);
         Toast.makeText(this, cancel + " canceled", Toast.LENGTH_LONG).show();
     }
